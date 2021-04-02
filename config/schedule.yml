@@ -1,0 +1,7 @@
+expired_deal_job:
+  cron: "0 0 * *"
+  class: "ExpiredDealWorker"
+
+active_deal_job:
+  cron: "1 0 * *"
+  class: "ActiveDealWorker"

@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+<%= link_to 'Go to cart', carts_path %>
+<h1>Orders</h1>
+
+<%if @orders.present?%>
+<table class='table'>
+  <thead>
+    <tr>
+      <th>deal_id</th>
+      <th>customer_id</th>
+      <th>address</th>
+      <th>Mobile Number</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    <% @orders.each do |order| %>
+      <tr>
+        <td><%= order.deal.title %></td>
+        <td><%= order.customer_id %></td>
+        <td><%= order.address%></td>
+        <td><%= order.mobile_number %></td>
+        
+       
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%else%>
+ <h1>No Deals Available</h1>
+<%end%>

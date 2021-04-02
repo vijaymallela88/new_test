@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+<%= link_to 'Place order', new_cart_path %>
+<h1>Orders</h1>
+<%if @carts.present?%>
+<%= form_with url: "/carts/update", method: :patch do |form| %>
+  
+  
+  <% @carts.each_with_index do |cart, index| %>
+    <tr>
+      <td><%= check_box_tag "cart_ids[]", cart.id%></td>
+      <td><%= cart.deal.title %></td>
+      <td><%= cart.customer_id %></td>
+      <%if index >= 1%>
+      <td><%= (cart.deal.price.to_i)/100 * index%></td>
+      <td><%= index %>%</td>
+      <%elsif index > 5%>
+      <td><%= (cart.deal.price.to_i)/100 * 5%></td>
+      <td><%= 5%>%</td>
+      <%else%>
+      <td><%= 0%></td>
+      <td><%= 0%>%</td>
+      <%end%>
+      <td><%= link_to 'Remove', cart, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr><br>
+  <% end %>
+
+  <div class="actions">
+    <%= submit_tag 'Submit', class: 'btn btn-primary' %>
+  </div>
+<% end %>
+<%end%>
+<%= link_to 'Back to deals', deals_path %>

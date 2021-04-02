@@ -1,0 +1,42 @@
+<p id="notice"><%= notice %></p>
+<%= link_to 'Orders', new_cart_path %><br>
+<%if session[:user_type] == "admin"%>
+<%= link_to 'Create New Deal', new_deal_path %><br>
+<%end%>
+<%if @deals.present?%>
+<h1>Deals</h1>
+<table class='table'>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Price</th>
+      <th>Discounted price</th>
+      <th>Publish_date</th>
+      <th>Quantity</th>
+      <%if session[:user_type] == "admin"%>
+      <th colspan="2"></th>
+      <%end%>
+    </tr>
+  </thead>
+  <tbody>
+    <% @deals.each do |deal| %>
+      <tr>
+        <td><%= deal.title %></td>
+        <td><%= deal.description %></td>
+        <td><%= deal.price %></td>
+        <td><%= deal.discounted_price %></td>
+        <td><%= deal.publish_date.strftime("%d/%m/%Y %H:%M:%S") %></td>
+        <td><%= deal.quantity %></td>
+        <%if session[:user_type] == "admin"%>
+        <td><%= link_to 'Edit', edit_deal_path(deal) %></td>
+        <td><%= link_to 'Destroy', deal, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <%end%>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%else%>
+<%= link_to 'Create New Deal', new_deal_path %><br>
+ <h1>No Deals Available</h1>
+<%end%>
